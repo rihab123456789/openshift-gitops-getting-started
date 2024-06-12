@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: quay.io/redhattraining/todo-backend:release-46
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DATABASE_URL
+          value: "mysql://root:yourpassword@mysql:3306/yourdatabase"
+
