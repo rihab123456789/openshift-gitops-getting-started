@@ -111,7 +111,7 @@ metadata:
   labels:
     app: exoplanets
   annotations: 
-    argocd.argoproj.io/sync-wave: "5"
+    argocd.argoproj.io/sync-wave: "6"
 spec:
   host: "exoplanets-test-gitops.apps.ocp4.smartek.ae"
   to:
