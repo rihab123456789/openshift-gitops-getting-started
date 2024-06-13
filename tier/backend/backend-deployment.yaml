@@ -6,7 +6,7 @@ metadata:
   labels:
     app: exoplanets
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "3"
 data:
   DB_HOST: database
   DB_PORT: "5432"
@@ -18,7 +18,7 @@ metadata:
   labels:
     app: exoplanets
   annotations: 
-    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/sync-wave: "4"
 stringData:
   DB_NAME: database
   DB_USER: user1
@@ -34,7 +34,7 @@ metadata:
   annotations:
     description: Defines how to deploy the application server
     template.alpha.openshift.io/wait-for-ready: "true"
-    argocd.argoproj.io/sync-wave: "4"
+    argocd.argoproj.io/sync-wave: "5"
 spec:
   replicas: 1
   selector:
@@ -95,7 +95,7 @@ metadata:
   annotations:
     description: Exposes and load balances the application pods
     service.alpha.openshift.io/dependencies: '[{"kind": "Service", "name": "database"}]'
-    argocd.argoproj.io/sync-wave: "4"
+    argocd.argoproj.io/sync-wave: "5"
 spec:
   selector:
     app: exoplanets
@@ -111,7 +111,7 @@ metadata:
   labels:
     app: exoplanets
   annotations: 
-    argocd.argoproj.io/sync-wave: "5"
+    argocd.argoproj.io/sync-wave: "6"
 spec:
   host: ""
   to:
