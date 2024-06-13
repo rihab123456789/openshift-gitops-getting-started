@@ -94,7 +94,7 @@ metadata:
   annotations:
     description: Exposes and load balances the application pods
     service.alpha.openshift.io/dependencies: '[{"kind": "Service", "name": "database"}]'
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   selector:
     app: exoplanets
@@ -110,7 +110,7 @@ metadata:
   labels:
     app: exoplanets
   annotations: 
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   host: ""
   to:
