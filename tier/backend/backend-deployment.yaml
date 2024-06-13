@@ -45,8 +45,8 @@ spec:
     spec:
       containers:
       - name: exoplanets
-        image: registry.ocp4.example.com:8443/redhattraining/exoplanets:v1.1.1
-        imagePullPolicy: Always
+        image: quay.io/redhattraining/exoplanets:v1.0
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
         envFrom:
