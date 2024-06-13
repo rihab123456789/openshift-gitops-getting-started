@@ -1,0 +1,3 @@
+resources:
+- db-deployment.yaml
+- backend-deployment.yaml
