@@ -36,7 +36,7 @@ metadata:
     template.alpha.openshift.io/wait-for-ready: "true"
     argocd.argoproj.io/sync-wave: "5"
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: exoplanets
