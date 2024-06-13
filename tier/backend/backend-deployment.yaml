@@ -113,7 +113,7 @@ metadata:
   annotations: 
     argocd.argoproj.io/sync-wave: "5"
 spec:
-  host: ""
+  host: "exoplanets-test-gitops.apps.ocp4.smartek.ae"
   to:
     kind: Service
     name: exoplanets
