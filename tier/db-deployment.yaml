@@ -23,7 +23,7 @@ metadata:
 stringData:
   database-name: database
   database-user: user1
-  database-password: password1
+  database-password: password
   database-admin-password: postgres
 ---
 apiVersion: apps/v1
