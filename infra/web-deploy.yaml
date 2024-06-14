@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    deployment.kubernetes.io/revision: "2"
+    #deployment.kubernetes.io/revision: "2"
     argocd.argoproj.io/sync-wave: "0"
   labels:
     app: web-pod
