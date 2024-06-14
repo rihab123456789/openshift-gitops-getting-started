@@ -1,0 +1,17 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    openshift.io/host.generated: "true"
+    argocd.argoproj.io/sync-wave: "3"
+  labels:
+    app: app-pod
+  name: app-pod
+spec:
+  host: app-pod-test-gitops-1.apps.ocp4.smartek.ae
+  port:
+    targetPort: 9090
+  to:
+    kind: Service
+    name: app-pod
+

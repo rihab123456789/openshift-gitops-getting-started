@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: gitops-pv
+  annotations: 
+    argocd.argoproj.io/sync-wave: "-2"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    path: /shares/gitops
+    server: 192.168.50.10
