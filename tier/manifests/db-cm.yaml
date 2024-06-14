@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: database
+  labels:
+    app: database
+    template: postgresql-ephemeral-template
+  annotations: 
+    argocd.argoproj.io/sync-wave: "-2"
+data:
+  POSTGRESQL_MAX_CONNECTIONS: "100"

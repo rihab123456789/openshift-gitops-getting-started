@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: exoplanets
+  labels:
+    app: exoplanets
+  annotations:
+    description: Exposes and load balances the application pods
+    service.alpha.openshift.io/dependencies: '[{"kind": "Service", "name": "database"}]'
+    argocd.argoproj.io/sync-wave: "5"
+spec:
+  selector:
+    app: exoplanets
+  ports:
+  - name: web
+    port: 8080
+    targetPort: 8080

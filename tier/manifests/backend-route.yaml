@@ -1,0 +1,13 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: exoplanets
+  labels:
+    app: exoplanets
+  annotations: 
+    argocd.argoproj.io/sync-wave: "6"
+spec:
+  host: "exoplanets-test-gitops.apps.ocp4.smartek.ae"
+  to:
+    kind: Service
+    name: exoplanets
