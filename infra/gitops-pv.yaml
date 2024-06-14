@@ -8,7 +8,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   capacity:
-    storage: 1Gi
+    storage: 2Gi
   persistentVolumeReclaimPolicy: Delete
   nfs:
     path: /shares/gitops
