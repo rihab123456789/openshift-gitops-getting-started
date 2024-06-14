@@ -11,5 +11,5 @@ spec:
     storage: 1Gi
   persistentVolumeReclaimPolicy: Delete
   nfs:
-    path: /shares/gitops
+    path: /shares/gitopss
     server: 192.168.50.10
