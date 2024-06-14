@@ -22,7 +22,7 @@ metadata:
     template.openshift.io/expose-database_name: '{.data[''database-name'']}'
     template.openshift.io/expose-password: '{.data[''database-password'']}'
     template.openshift.io/expose-username: '{.data[''database-user'']}'
-    argocd.argoproj.io/sync-wave: "-1"
+    argocd.argoproj.io/sync-wave: "-2"
 stringData:
   database-name: database
   database-user: user1
@@ -39,7 +39,7 @@ metadata:
   annotations:
     description: Defines how to deploy the database server
     template.alpha.openshift.io/wait-for-ready: "true"
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
   replicas: 1
   selector:
@@ -130,7 +130,7 @@ metadata:
     template: postgresql-ephemeral-template
   annotations:
     template.openshift.io/expose-uri: postgres://{.spec.clusterIP}:{.spec.ports[?(.name=="postgresql")].port}
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   type: ClusterIP
   sessionAffinity: None
