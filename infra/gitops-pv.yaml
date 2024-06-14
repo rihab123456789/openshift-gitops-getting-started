@@ -9,7 +9,7 @@ spec:
     - ReadWriteOnce
   capacity:
     storage: 1Gi
-  persistentVolumeReclaimPolicy: Retain
+  persistentVolumeReclaimPolicy: Delete
   nfs:
     path: /shares/gitops
     server: 192.168.50.10
