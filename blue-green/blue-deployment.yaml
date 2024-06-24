@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bluegreendeployment
+spec:
+  replicas: 1 # Set the number of desired replicas
+  selector:
+    matchLabels:
+      app: bluegreen
+  template:
+    metadata:
+      labels:
+        app: bluegreen
+    spec:
+      containers:
+      - name: bluegreendep-v1
+        image: sreekanthpv12/bluegreendep-v1:latest
+        ports:
+        - containerPort: 80
+
