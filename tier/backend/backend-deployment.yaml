@@ -50,7 +50,7 @@ spec:
     spec:
       containers:
       - name: exoplanets
-        image: quay.io/redhattraining/exoplanets:v1.1.1
+        image: quay.io/redhattraining/exoplanets:v1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
