@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: exoplanets
+  name: green
   labels:
-    app: exoplanets
+    app: green
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 data:
@@ -14,9 +14,9 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: exoplanets
+  name: green
   labels:
-    app: exoplanets
+    app: green
   annotations: 
     argocd.argoproj.io/sync-wave: "1"
 stringData:
@@ -28,9 +28,9 @@ stringData:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: exoplanets
+  name: green
   labels:
-    app: exoplanets
+    app: green
   annotations:
     description: Defines how to deploy the application server
     template.alpha.openshift.io/wait-for-ready: "true"
@@ -39,14 +39,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: exoplanets
+      app: green
   strategy:
     type: Recreate
   template:
     metadata:
-      name: exoplanets
+      name: green
       labels:
-        app: exoplanets
+        app: green
     spec:
       containers:
       - name: exoplanets
@@ -56,9 +56,9 @@ spec:
         - containerPort: 8080
         envFrom:
         - configMapRef:
-            name: exoplanets
+            name: green
         - secretRef:
-            name: exoplanets
+            name: green
         livenessProbe:
           httpGet:
             path: /healthz
@@ -89,16 +89,16 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: exoplanets
+  name: green
   labels:
-    app: exoplanets
+    app: green
   annotations:
     description: Exposes and load balances the application pods
     service.alpha.openshift.io/dependencies: '[{"kind": "Service", "name": "database"}]'
     argocd.argoproj.io/sync-wave: "2"
 spec:
   selector:
-    app: exoplanets
+    app: green
   ports:
   - name: web
     port: 8080
@@ -107,13 +107,13 @@ spec:
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: exoplanets
+  name: green
   labels:
-    app: exoplanets
+    app: green
   annotations: 
     argocd.argoproj.io/sync-wave: "3"
 spec:
-  host: "exoplanets-test-gitops.apps.ocp4.smartek.ae"
+  host: "green-blue-green.apps.ocp4.smartek.ae"
   to:
     kind: Service
-    name: exoplanets
+    name: green
