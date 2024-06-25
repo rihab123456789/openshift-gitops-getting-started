@@ -2,6 +2,15 @@ pipeline {
     agent any
 
     stages {
+        stage('Install Podman') {
+            steps {
+                sh '''
+                # Update package list and install Podman
+                apt-get update && \
+                apt-get install -y podman
+                '''
+            }
+        }
         stage('Build Image') {
             steps {
                 script {
