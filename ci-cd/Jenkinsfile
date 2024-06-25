@@ -8,6 +8,7 @@ pipeline {
                 # Update package list and install Podman
                 #dnf update && \
                 dnf install -y podman
+                export PATH=$PATH:/usr/local/bin
                 '''
             }
         }
