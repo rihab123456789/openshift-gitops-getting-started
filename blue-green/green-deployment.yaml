@@ -48,7 +48,7 @@ metadata:
     app: green
   name: green
 spec:
-  host: green-blue-green.apps.ocp4.smartek.ae
+  host: green-blue-green-test.apps.ocp4.smartek.ae
   port:
     targetPort: 8080
   to:
