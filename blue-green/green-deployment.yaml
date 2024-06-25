@@ -1,9 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: greendeployment
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  labels:
+    app: green
+  name: green
 spec:
-  replicas: 1 # Set the number of desired replicas
+  replicas: 1
+  revisionHistoryLimit: 10
   selector:
     matchLabels:
       app: green
@@ -13,9 +18,39 @@ spec:
         app: green
     spec:
       containers:
-      - name: bluegreendep-v2
-        image: sreekanthpv12/bluegreendep-v2:latest
+      - image: quay.io/rkhelifi/hello-green:v1
+        imagePullPolicy: IfNotPresent
+        name: hello-green
         ports:
         - containerPort: 80
-
-
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: green
+  name: green
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: green
+  type: ClusterIP
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    openshift.io/host.generated: "true"
+  labels:
+    app: green
+  name: green
+spec:
+  host: green-blue-green.apps.ocp4.smartek.ae
+  port:
+    targetPort: 8080
+  to:
+    kind: Service
+    name: green
