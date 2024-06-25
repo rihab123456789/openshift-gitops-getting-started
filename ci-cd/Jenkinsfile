@@ -5,7 +5,7 @@ pipeline {
             steps {
                 script {
                     // Build the image with podman
-                    sh 'docker build -t hello-gitops:v1 .'
+                    sh 'podman build -t hello-gitops:v1 .'
 
                     // Login to Quay.io registry (replace with your credentials)
                     sh 'podman login -u rkhelifi@smartek.ae -p khelifi123 quay.io'
