@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent any { 
       kubernetes {
       yaml '''
         apiVersion: v1
@@ -19,7 +19,7 @@ pipeline {
               - name: HOME
                 value: /home/jenkins/agent'''
     }
-  }
+ }
     stages {
         stage('Build Image') {
             steps {
