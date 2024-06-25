@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build Image') {
+            steps {
+                script {
+                    // Build the image with podman
+                    sh 'podman build -t hello-gitops:v1 .'
+
+                    // Login to Quay.io registry (replace with your credentials)
+                    sh 'podman login -u rkhelifi@smartek.ae -p khelifi123 quay.io'
+
+                    // Tag the image for Quay.io
+                    sh 'podman tag hello-gitops:v1 quay.io/rkhelifi/hello-gitops:v1'
+
+                    // Push the image to Quay.io
+                    sh 'podman push quay.io/rkhelifi/hello-gitops:v1'
+                }
+            }
+        }
+        stage('Make Image Public (Optional)') {
+            steps {
+                script {
+                    // Login to Quay.io (replace with your credentials and API token)
+                    sh 'curl -X POST -H "Authorization: Bearer your_quay_api_token" https://quay.io/api/v1/organization/rkhelifi/repository/hello-gitops/set-public?public=true'
+                }
+            }
+        }
+        stage('Deploy Image (OpenShift)') {
+            steps {
+                script {
+                    // Deploy the image using oc
+                    sh 'oc create deployment hello-gitops --image=quay.io/rkhelifi/hello-gitops:v1'
+                }
+            }
+        }
+    }
+}
+
