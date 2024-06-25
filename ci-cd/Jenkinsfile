@@ -6,7 +6,7 @@ pipeline {
             steps {
                 sh '''
                 # Update package list and install Podman
-                dnf update && \
+                #dnf update && \
                 dnf install -y podman
                 '''
             }
