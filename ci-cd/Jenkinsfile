@@ -11,7 +11,7 @@ pipeline {
           serviceAccountName: nonrootbuilder-sa
           containers:
           - name: podman-builder
-            image: podman-builder:latest
+            image: localhost/mycoolcontainer:latest
             command:
               - cat
             tty: true
