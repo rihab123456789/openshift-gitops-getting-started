@@ -1,5 +1,24 @@
 pipeline {
     agent any 
+      kubernetes {
+      yaml '''
+        apiVersion: v1
+        kind: Pod
+        metadata:
+          labels:
+            label: jenkins-build
+        spec:
+          serviceAccountName: nonrootbuilder-sa
+          containers:
+          - name: podman-builder
+            image: localhost/mycoolcontainer:latest
+            command:
+              - cat
+            tty: true
+            env:
+              - name: HOME
+                value: /home/jenkins/agent'''
+    }
     stages {
         stage('Build Image') {
             steps {
