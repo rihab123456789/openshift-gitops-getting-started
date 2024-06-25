@@ -1,0 +1,1 @@
+https://medium.com/@icheko/building-containers-using-jenkins-podman-on-openshift-fe8f3192e7f6
