@@ -78,7 +78,7 @@ pipeline {
             sh "git config --global user.name 'Rihab'"  
             sh "git remote set-url origin https://${GITHUB_PAT}@github.com/rihab123456789/openshift-gitops-getting-started.git"  
             sh 'git add "."'  // Add only the upda${GITHUB_PAT}ted file
-            sh "git commit -m 'Updated image version for Build #${BUILD_NUMBER}'"
+            sh "git commit -am 'Updated image version for Build #${BUILD_NUMBER}'"
             // Assuming you have configured Git credentials (avoid exposing credentials)
             sh 'git push origin main'  // Adjust branch name if needed
           }
