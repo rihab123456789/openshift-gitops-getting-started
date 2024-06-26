@@ -73,7 +73,6 @@ pipeline {
      stage('Commit & Push to Git Repository') {
       steps {
           script { 
-           #withCredentials([secretText(credentialsId: 'github-token', variable: 'GITHUB_PAT')]) {
             sh "git config --global user.email 'rkhelifi@smartek.ae'"  // Replace with your email
             sh "git config --global user.name 'Rihab'"  
             sh "git remote set-url origin https://${GITHUB_PAT}@github.com/rihab123456789/openshift-gitops-getting-started.git"  
