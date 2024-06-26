@@ -52,22 +52,22 @@ pipeline {
                    sh 'ls -l ci-cd'
             
             // Build the image with podman, specifying the path to the Containerfile
-                   sh 'podman build -t hello-gitops:${BUILD_NUMBER}-v1 -f ci-cd/Containerfile .'
+                   sh 'podman build -t hello-gitops:${BUILD_NUMBER} -f ci-cd/Containerfile .'
                     // Login to Quay.io registry (replace with your credentials)
                     sh 'podman login -u rkhelifi@smartek.ae -p khelifi123 quay.io'
 
                     // Tag the image for Quay.io
-                    sh 'podman tag hello-gitops:${BUILD_NUMBER}-v1 quay.io/rkhelifi/hello-gitops:${BUILD_NUMBER}-v1'
+                    sh 'podman tag hello-gitops:${BUILD_NUMBER} quay.io/rkhelifi/hello-gitops:${BUILD_NUMBER}'
 
                     // Push the image to Quay.io
-                    sh 'podman push quay.io/rkhelifi/hello-gitops:${BUILD_NUMBER}-v1'
+                    sh 'podman push quay.io/rkhelifi/hello-gitops:${BUILD_NUMBER}'
                 }
             }
         } } 
      stage('Update Deployment Manifest') {
     steps {
-        script {
-          sh "sed -i 's#quay.io/rkhelifi/hello-gitops:${BUILD_NUMBER}-v1#quay.io/rkhelifi/hello-gitops:${BUILD_NUMBER}-v1#g' ci-cd/app/deployment.yaml"
+        script {    
+          sh "sed -i 's#quay.io/rkhelifi/hello-gitops:{{BUILD_NUMBER}}#quay.io/rkhelifi/hello-gitops:${BUILD_NUMBER}#g' ci-cd/app/deployment.yaml"
                 }
         }
 
