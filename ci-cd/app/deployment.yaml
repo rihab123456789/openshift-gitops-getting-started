@@ -39,7 +39,7 @@ spec:
   type: ClusterIP
 ---
 apiVersion: route.openshift.io/v1
-kind: ci-cd
+kind: Route
 metadata:
   annotations:
     openshift.io/host.generated: "true"
