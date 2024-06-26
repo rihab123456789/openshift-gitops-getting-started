@@ -67,7 +67,7 @@ pipeline {
      stage('Update Deployment Manifest') {
     steps {
         script {
-          sh "sed -i 's#quay.io/rkhelifi/hello-gitops:${BUILD_NUMBER}-v1#quay.io/rkhelifi/hello-gitops:${BUILD_NUMBER}-v1#g' ci-cd/app/deployment.yaml"
+          sh "sed -i 's#quay.io/rkhelifi/hello-gitops:52-v1#quay.io/rkhelifi/hello-gitops:${BUILD_NUMBER}-v1#g' ci-cd/app/deployment.yaml"
                 }
         }
 
