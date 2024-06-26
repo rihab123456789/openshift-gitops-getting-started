@@ -66,7 +66,7 @@ pipeline {
           script { 
             sh "git config --global user.email 'rkhelifi@smartek.ae'"  // Replace with your email
             sh "git config --global user.name 'Rihab'"  
-            sh 'git add ci-cd/app/deployment.yaml'  // Add only the updated file
+            sh 'git add -A'  // Add only the updated file
             sh "git commit -am 'Updated image version for Build #${BUILD_NUMBER}'"
             // Assuming you have configured Git credentials (avoid exposing credentials)
             sh 'git push origin main'  // Adjust branch name if needed
