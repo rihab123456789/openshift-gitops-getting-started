@@ -60,7 +60,14 @@ pipeline {
                     sh 'podman push quay.io/rkhelifi/hello-gitops:v1'
                 }
             }
-        } }  
+        } } 
+     stage('Update Deployment Manifest') {
+    steps {
+        script {
+          sh "sed -i 's/quay.io\/rkhelifi\/hello-gitops:v1/quay.io\/rkhelifi\/hello-gitops:${BUILD_NUMBER}:v1/' ci-cd/app/deployment.yaml"
+        }
+    }
+  } 
      stage('Commit & Push to Git Repository') {
       steps {
           script { 
@@ -69,7 +76,6 @@ pipeline {
             sh 'git add "."'  // Add only the updated file
             sh "git commit -am 'Updated image version for Build #${BUILD_NUMBER}'"
             // Assuming you have configured Git credentials (avoid exposing credentials)
-            sh 'git pull'  // Adjust branch name if needed
             sh 'git push origin main'  // Adjust branch name if needed
           }
         }
