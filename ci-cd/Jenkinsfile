@@ -56,9 +56,6 @@ pipeline {
 
                     // Push the image to Quay.io
                     sh 'podman push quay.io/rkhelifi/hello-gitops:v1'
-                    sh 'git add "ci-cd/"'
-                    sh 'git commit -m "Automatic manifest update after build #${BUILD_NUMBER}"'
-                    sh 'git push origin main'
                 }
             }
         } }  
