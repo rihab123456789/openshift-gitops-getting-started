@@ -11,7 +11,7 @@ pipeline {
           serviceAccountName: nonrootbuilder-sa
           containers:
           - name: podman-builder
-            image: quay.io/rkhelifi/podman-builder:v1
+            image: quay.io/rkhelifi/podman-builder:v2
             command:
               - cat
             tty: true
@@ -37,7 +37,7 @@ pipeline {
         stage('Build Image') {
             steps { 
                 container('podman-builder') {
-                dir('podman-build'){
+                dir('/home/jenkins/agent/workspace/hello-gitops'){
                 script {
                     // Build the image with podman
                     sh 'podman build -t hello-gitops:v1 .'
