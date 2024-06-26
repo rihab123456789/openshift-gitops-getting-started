@@ -59,6 +59,19 @@ pipeline {
                 }
             }
         } }  
+     stage('Commit & Push to Git Repository') {
+      steps {
+        container('podman-builder') {  // Optional: Run inside the podman container
+          script {
+            sh 'git add ci-cd/app/deployment.yaml'  // Add only the updated file
+            sh "git commit -am 'Updated image version for Build #${BUILD_NUMBER}'"
+            // Assuming you have configured Git credentials (avoid exposing credentials)
+            sh 'git push origin main'  // Adjust branch name if needed
+          }
+        }
+      }
+    }
+
     }
 } 
 
