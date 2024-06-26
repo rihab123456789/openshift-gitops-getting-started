@@ -54,7 +54,7 @@ pipeline {
                     sh 'podman login -u rkhelifi@smartek.ae -p khelifi123 quay.io'
 
                     // Tag the image for Quay.io
-                    sh 'podman tag hello-gitops:${BUILD_NUMBER}-v1 quay.io/rkhelifi/hello-gitops:${BUILD_NUMBER}:v1'
+                    sh 'podman tag hello-gitops:${BUILD_NUMBER}-v1 quay.io/rkhelifi/hello-gitops:${BUILD_NUMBER}-v1'
 
                     // Push the image to Quay.io
                     sh 'podman push quay.io/rkhelifi/hello-gitops:${BUILD_NUMBER}-v1'
