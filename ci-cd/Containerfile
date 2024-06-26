@@ -2,7 +2,7 @@
 FROM quay.io/redhattraining/hello-world-nginx
 
 # Copy version 1 HTML into the Nginx web server's root directory
-COPY index.html  /usr/share/nginx/html/index.html
+COPY ci-cd/index.html  /usr/share/nginx/html/index.html
 
 # Expose port 80 to allow external access
 EXPOSE 80
