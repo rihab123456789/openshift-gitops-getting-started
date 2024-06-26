@@ -17,11 +17,15 @@ pipeline {
             tty: true
             env:
               - name: HOME
-                value: /home/jenkins/agent
+                value: /home/jenkins/agent 
               - name: PATH
-                value: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin '''
+                value: /opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin
+'''
+    }
   }
-}
+  environment {
+    PATH = "/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin"
+  }
     stages {
             stage('Debug Podman PATH') {
       steps {
@@ -39,7 +43,7 @@ pipeline {
             steps {
                 script {
                     // Build the image with podman
-                    sh 'export PATH=$PATH:/usr/bin && podman build -t hello-gitops:v1 .'
+                    sh 'podman build -t hello-gitops:v1 .'
 
                     // Login to Quay.io registry (replace with your credentials)
                     sh 'podman login -u rkhelifi@smartek.ae -p khelifi123 quay.io'
