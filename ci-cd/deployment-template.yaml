@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  #annotations:
+    #deployment.kubernetes.io/revision: "1"
+  labels:
+    app: ci-cd
+  name: ci-cd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ci-cd
+  template:
+    metadata:
+      labels:
+        app: ci-cd
+    spec:
+      containers:
+      - image: quay.io/rkhelifi/hello-gitops:{{BUILD_NUMBER}}
+        imagePullPolicy: Always
+        name: hello-ci-ci
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ci-cd
+  name: ci-cd
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: ci-cd
+  type: ClusterIP
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    openshift.io/host.generated: "true"
+  labels:
+    app: ci-cd
+  name: ci-cd
+spec:
+  host: ci-cd-jenkins-gitops-test.apps.ocp4.smartek.ae
+  port:
+    targetPort: 8080
+  to:
+    kind: Service
+    name: ci-cd
