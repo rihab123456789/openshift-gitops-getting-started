@@ -59,14 +59,6 @@ pipeline {
                 }
             }
         } }  
-        stage('Make Image Public (Optional)') {
-            steps {
-                script {
-                    // Login to Quay.io (replace with your credentials and API token)
-                    sh 'curl -X POST -H "Authorization: Bearer your_quay_api_token" https://quay.io/api/v1/organization/rkhelifi/repository/hello-gitops/set-public?public=true'
-                }
-            }
-        }
     }
 } 
 
