@@ -17,7 +17,11 @@ spec:
         app: ci-cd
     spec:
       containers:
+<<<<<<< HEAD
       - image: quay.io/rkhelifi/hello-gitops:56-v1
+=======
+      - image: quay.io/rkhelifi/hello-gitops:{{BUILD_NUMBER}}-v1
+>>>>>>> dcc91e2 (k8s)
         imagePullPolicy: Always
         name: hello-ci-ci
         ports:
