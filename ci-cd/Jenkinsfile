@@ -75,7 +75,7 @@ pipeline {
           script { 
             sh "git config --global user.email 'rkhelifi@smartek.ae'"  // Replace with your email
             sh "git config --global user.name 'Rihab'"  
-            sh "git remote set-url origin https://${GITHUB_PAT}@github.com/rihab123456789/openshift-gitops-getting-started.git"  
+            sh "git remote set-url origin https://github.com/rihab123456789/openshift-gitops-getting-started.git"  
             sh 'git add "."'  // Add only the upda${GITHUB_PAT}ted file
             sh "git commit -am 'Updated image version for Build #${BUILD_NUMBER}'"
             // Assuming you have configured Git credentials (avoid exposing credentials)
