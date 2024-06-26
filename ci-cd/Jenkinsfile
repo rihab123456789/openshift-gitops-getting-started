@@ -1,7 +1,7 @@
 pipeline {
     agent {
       kubernetes {
-      yaml '''
+        yaml '''
         apiVersion: v1
         kind: Pod
         metadata:
@@ -18,8 +18,9 @@ pipeline {
             env:
               - name: HOME
                 value: /home/jenkins/agent'''
-    }
+   
   }
+}
     stages {
         stage('Build Image') {
             steps {
@@ -55,5 +56,5 @@ pipeline {
             }
         }
     }
-}
+} 
 
