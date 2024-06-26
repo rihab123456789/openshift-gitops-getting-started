@@ -11,26 +11,21 @@ pipeline {
           serviceAccountName: nonrootbuilder-sa
           containers:
           - name: podman-builder
-            image: quay.io/rkhelifi/podman-builder:v2
+            image: quay.io/rkhelifi/podman-builder:v1
             command:
               - cat
             tty: true
             env:
               - name: HOME
                 value: /home/jenkins/agent 
-              - name: PATH
-                value: /opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin
 '''
     }
   }
-  environment {
-    PATH = "/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin"
-  }
     stages {
-            stage('Debug Podman PATH') {
-      steps {
-        container('podman-builder') {
-          script {
+        stage('Debug Podman PATH') {
+           steps {
+              container('podman-builder') {
+               script {
             // Print PATH and check podman location
             sh 'echo $PATH'
             sh 'which podman'
@@ -46,7 +41,6 @@ pipeline {
                 script {
                     // Build the image with podman
                     sh 'podman build -t hello-gitops:v1 .'
-
                     // Login to Quay.io registry (replace with your credentials)
                     sh 'podman login -u rkhelifi@smartek.ae -p khelifi123 quay.io'
 
