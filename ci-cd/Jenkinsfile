@@ -75,10 +75,11 @@ pipeline {
           script { 
             sh "git config --global user.email 'rkhelifi@smartek.ae'"  // Replace with your email
             sh "git config --global user.name 'Rihab'"  
+            sh "git remote set-url origin https://rihab123456789:khelifi123!123@github.com/rihab123456789/openshift-gitops-getting-started.git"  
             sh 'git add "."'  // Add only the updated file
             sh "git commit -am 'Updated image version for Build #${BUILD_NUMBER}'"
             // Assuming you have configured Git credentials (avoid exposing credentials)
-            sh 'git push --set-upstream https://github.com/rihab123456789/openshift-gitops-getting-started.git main'  // Adjust branch name if needed
+            sh 'git push origin main'  // Adjust branch name if needed
           }
         }
     }
