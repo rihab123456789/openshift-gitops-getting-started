@@ -67,14 +67,6 @@ pipeline {
                 }
             }
         }
-        stage('Deploy Image (OpenShift)') {
-            steps {
-                script {
-                    // Deploy the image using oc
-                    sh 'oc create deployment hello-gitops --image=quay.io/rkhelifi/hello-gitops:v1'
-                }
-            }
-        }
     }
 } 
 
