@@ -11,7 +11,7 @@ pipeline {
           serviceAccountName: nonrootbuilder-sa
           containers:
           - name: podman-builder
-            image: quay.io/rkhelifi/podman-builder:v3
+            image: quay.io/rkhelifi/podman-builder:v1
             command:
               - cat
             tty: true
@@ -33,14 +33,21 @@ pipeline {
           }
         }
       }
+    }   
+       stage('Checkout') {
+      steps {
+        // Checkout the repository
+        git url: 'https://your.git.repo/hello-gitops.git', branch: 'main'
+      }
     }
         stage('Build Image') {
             steps { 
                 container('podman-builder') {
-                dir('/home/jenkins/agent/workspace/hello-gitops'){
                 script {
-                    // Build the image with podman
-                    sh 'podman build -t hello-gitops:v1 .'
+                      sh 'ls -l ci-cd'
+            
+            // Build the image with podman, specifying the path to the Containerfile
+            sh 'podman build -t hello-gitops:v1 -f ci-cd/Containerfile .'
                     // Login to Quay.io registry (replace with your credentials)
                     sh 'podman login -u rkhelifi@smartek.ae -p khelifi123 quay.io'
 
