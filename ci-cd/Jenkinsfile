@@ -33,7 +33,18 @@ pipeline {
           }
         }
       }
-    }   
+    }  
+  stages {
+        stage('Debug git PATH') {
+           steps {
+              container('podman-builder') {
+               script {
+            sh 'git --version'
+          }
+        }
+      }
+    }
+ 
        stage('Checkout') {
       steps {
         // Checkout the repository
