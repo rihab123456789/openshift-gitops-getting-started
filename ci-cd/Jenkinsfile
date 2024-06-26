@@ -11,7 +11,7 @@ pipeline {
           serviceAccountName: nonrootbuilder-sa
           containers:
           - name: podman-builder
-            image: quay.io/rkhelifi/podman-builder:v3
+            image: quay.io/rkhelifi/podman-builder:v2
             command:
               - cat
             tty: true
@@ -42,6 +42,7 @@ pipeline {
         stage('Build Image') {
             steps { 
                 container('podman-builder') {
+                dir('podman-build'){
                 script {
                     // Build the image with podman
                     sh 'podman build -t hello-gitops:v1 .'
@@ -56,7 +57,7 @@ pipeline {
                     sh 'podman push quay.io/rkhelifi/hello-gitops:v1'
                 }
             }
-        } }
+        } } } 
         stage('Make Image Public (Optional)') {
             steps {
                 script {
