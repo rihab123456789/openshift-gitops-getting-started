@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - image: quay.io/rkhelifi/hello-gitops:v1
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         name: hello-ci-ci
         ports:
         - containerPort: 80
