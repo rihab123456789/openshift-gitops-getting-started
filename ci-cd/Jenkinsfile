@@ -78,7 +78,7 @@ pipeline {
             sh 'git add "."'  // Add only the updated file
             sh "git commit -am 'Updated image version for Build #${BUILD_NUMBER}'"
             // Assuming you have configured Git credentials (avoid exposing credentials)
-            sh 'git push'  // Adjust branch name if needed
+            sh 'git push --set-upstream origin main'  // Adjust branch name if needed
           }
         }
     }
