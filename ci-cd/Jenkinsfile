@@ -22,6 +22,18 @@ pipeline {
   }
 }
     stages {
+            stage('Debug Podman PATH') {
+      steps {
+        container('podman-builder') {
+          script {
+            // Print PATH and check podman location
+            sh 'echo $PATH'
+            sh 'which podman'
+            sh 'podman --version'
+          }
+        }
+      }
+    }
         stage('Build Image') {
             steps {
                 script {
