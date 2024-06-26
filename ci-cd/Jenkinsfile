@@ -34,7 +34,6 @@ pipeline {
         }
       }
     }  
-  stages {
         stage('Debug git PATH') {
            steps {
               container('podman-builder') {
