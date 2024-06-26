@@ -11,7 +11,7 @@ pipeline {
           serviceAccountName: nonrootbuilder-sa
           containers:
           - name: podman-builder
-            image: localhost/mycoolcontainer:latest
+            image: quay.io/rkhelifi/podman-builder:v1
             command:
               - cat
             tty: true
