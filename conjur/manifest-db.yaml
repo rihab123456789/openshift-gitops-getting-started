@@ -67,8 +67,6 @@ spec:
             name: var-files
           - mountPath: /home/argocd/cmp-server/plugins
             name: plugins
-          - mountPath: /tmp
-            name: tmp
           - mountPath: /home/argocd/cmp-server/config/plugin.yaml
             name: cmp-plugin
             subPath: avp.yaml
