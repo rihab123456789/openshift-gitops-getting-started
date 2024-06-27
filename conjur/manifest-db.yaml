@@ -27,20 +27,11 @@ spec:
         image: registry.redhat.io/rhel9/mysql-80
         env:
           - name: MYSQL_USER
-            valueFrom:
-              secretKeyRef:
-                name: db-credentials
-                key: username
+            value: "user1"
           - name: MYSQL_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: db-credentials
-                key: password
+            value: "mypass"
           - name: MYSQL_DATABASE
-            valueFrom:
-              secretKeyRef:
-                name: db-credentials
-                key: database
+            value: "items" 
       - image: cyberark/secrets-provider-for-k8s
         imagePullPolicy: IfNotPresent
         name: cyberark-secrets-provider-for-k8s
