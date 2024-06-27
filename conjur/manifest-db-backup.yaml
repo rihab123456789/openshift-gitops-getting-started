@@ -1,3 +1,16 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations: 
+    argocd.argoproj.io/sync-wave: "-2"
+  name: db-credentials
+type: Opaque
+stringData:
+  conjur-map: |-   
+    username: secrets/username
+    password: secrets/password
+    database: secrets/database
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -41,6 +54,17 @@ spec:
               secretKeyRef:
                 name: db-credentials
                 key: database
+      - image: itdistrict/argocd-vault-plugin:1.0
+        imagePullPolicy: Always
+        name: avp
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 999
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+          - mountPath: /run/conjur
+            name: conjur-access-token
       - image: cyberark/secrets-provider-for-k8s
         imagePullPolicy: IfNotPresent
         name: cyberark-secrets-provider-for-k8s
