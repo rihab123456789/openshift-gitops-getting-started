@@ -1,0 +1,119 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations: 
+    argocd.argoproj.io/sync-wave: "-2"
+  name: db-credentials
+type: Opaque
+stringData:
+  conjur-map: |-   
+    username: secrets/username
+    password: secrets/password
+    database: secrets/database
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations: 
+    argocd.argoproj.io/sync-wave: "-2"
+  labels:
+    app: test-app-secrets-provider-k8s
+  name: test-app-secrets-provider-k8s
+  namespace: test-app-namespace
+spec:
+  selector:
+    matchLabels:
+      app: test-app-secrets-provider-k8s
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        conjur.org/container-mode: sidecar
+        conjur.org/secrets-refresh-enabled: "true"
+        conjur.org/secrets-refresh-interval: 10m
+      labels:
+        app: test-app-secrets-provider-k8s
+    spec:
+      serviceAccountName: test-app-sa
+      containers:
+      - name: test-app
+        image: registry.redhat.io/rhel9/mysql-80
+        env:
+          - name: MYSQL_USER
+            valueFrom:
+              secretKeyRef:
+                name: db-credentials
+                key: username
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-credentials
+                key: password
+          - name: MYSQL_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: db-credentials
+                key: database
+      - image: cyberark/secrets-provider-for-k8s
+        imagePullPolicy: IfNotPresent
+        name: cyberark-secrets-provider-for-k8s
+        env:
+          - name: CONJUR_AUTHN_LOGIN
+            value: host/test-app
+          - name: CONTAINER_MODE
+            value: sidecar
+          - name: MY_POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: MY_POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          - name: K8S_SECRETS
+            value: db-credentials
+          - name: SECRETS_DESTINATION
+            value: k8s_secrets
+        envFrom:
+          - configMapRef:
+              name: conjur-connect
+        volumeMounts:
+        - mountPath: /run/conjur
+          name: conjur-access-token
+        - mountPath: /etc/conjur/ssl
+          name: conjur-certs
+        - mountPath: /conjur/podinfo
+          name: podinfo
+      volumes:
+      - emptyDir:
+          medium: Memory
+        name: conjur-access-token
+      - emptyDir:
+          medium: Memory
+        name: conjur-certs
+      - downwardAPI:
+          defaultMode: 420
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.annotations
+            path: annotations
+        name: podinfo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1" 
+  labels:
+    app: test-app-secrets-provider-k8s
+  name: test-app-secrets-provider-k8s
+  namespace: test-app-namespace
+spec:
+  ports:
+  - port: 3306
+    protocol: TCP
+    targetPort: 3306
+  selector:
+    app: test-app-secrets-provider-k8s
+  type: ClusterIP
